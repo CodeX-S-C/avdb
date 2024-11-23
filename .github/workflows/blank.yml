@@ -1,5 +1,6 @@
 name: Update DB File
-
+permissions:
+   contents: write
 on:
   schedule:
     # Run every hour
