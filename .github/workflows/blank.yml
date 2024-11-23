@@ -4,6 +4,7 @@ on:
   schedule:
     # Run every hour
     - cron: "*/5 * * * *"
+  workflow_dispatch:
 
 jobs:
   update-db:
