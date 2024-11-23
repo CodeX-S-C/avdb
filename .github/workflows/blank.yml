@@ -18,6 +18,8 @@ jobs:
       # Run the script
       - name: Fetch and update db.txt
         run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/CodeX-S-C/avdb.git
+          git pull
           rm -fr db.txt
           curl https://bazaar.abuse.ch/export/txt/sha256/full/ --output dump.zip
           unzip -o dump.zip
@@ -35,7 +37,6 @@ jobs:
       - name: Commit and push changes
         run: |
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/CodeX-S-C/avdb.git
-          git pull
           git add db.txt
           git commit -m "Auto-update db.txt"
           git push
