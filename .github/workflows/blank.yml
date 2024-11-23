@@ -34,6 +34,7 @@ jobs:
       # Commit and push changes
       - name: Commit and push changes
         run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/CodeX-S-C/avdb.git
           git add db.txt
           git commit -m "Auto-update db.txt"
           git push
