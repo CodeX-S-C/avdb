@@ -3,7 +3,7 @@ name: Update DB File
 on:
   schedule:
     # Run every hour
-    - cron: "0 * * * *"
+    - cron: "*/5 * * * *"
 
 jobs:
   update-db:
