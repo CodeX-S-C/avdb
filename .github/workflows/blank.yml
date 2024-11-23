@@ -1,0 +1,38 @@
+name: Update DB File
+
+on:
+  schedule:
+    # Run every hour
+    - cron: "0 * * * *"
+
+jobs:
+  update-db:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Run the script
+      - name: Fetch and update db.txt
+        run: |
+          rm -fr db.txt
+          curl https://bazaar.abuse.ch/export/txt/sha256/full/ --output dump.zip
+          unzip -o dump.zip
+          rm -fr dump.zip
+          mv full_sha256.txt db.txt
+          echo "Updated db.txt"
+
+      # Configure Git
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      # Commit and push changes
+      - name: Commit and push changes
+        run: |
+          git add db.txt
+          git commit -m "Auto-update db.txt"
+          git push
